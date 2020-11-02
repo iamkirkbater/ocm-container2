@@ -7,6 +7,8 @@ cd $(dirname $0)
 CONFIG_DIR=${HOME}/.config/ocm-container
 export OCM_CONTAINER_CONFIGFILE="$CONFIG_DIR/env.source"
 
+export OCM_CONTAINER_KRB5CC_FILE=/tmp/krb5cc
+
 if [ ! -f ${OCM_CONTAINER_CONFIGFILE} ]; then
     echo "Cannot find config file at $OCM_CONTAINER_CONFIGFILE";
     echo "Run the init.sh file to create one."
@@ -34,4 +36,5 @@ ${SSH_AGENT_MOUNT} \
 -v ${HOME}/.ssh:/root/.ssh:ro \
 -v ${HOME}/.aws/credentials:/root/.aws/credentials:ro \
 -v ${HOME}/.aws/config:/root/.aws/config:ro \
+-v ${OCM_CONTAINER_KRB5CC_FILE}:/tmp/krb5cc:ro \
 ocm-container ${SSH_AUTH_ENABLE} /bin/bash 
